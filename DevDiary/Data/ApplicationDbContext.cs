@@ -17,6 +17,8 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<DiaryEntry>(e =>
         {
             e.HasKey(e => e.Id);
+            e.Property(p => p.Id)
+            .HasDefaultValueSql("NEWSEQUENTIALID()");
             e.Property(e => e.Title).IsRequired().HasMaxLength(200);
             e.Property(e => e.Tags).HasMaxLength(1000)
              .HasConversion(v =>
@@ -35,9 +37,12 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<DiaryCategory>(e =>
         {
             e.HasKey(e => e.Id);
-            e.Property(p => p.Name).IsRequired().HasMaxLength(100);
+            e.Property(p => p.Id)
+             .HasDefaultValueSql("NEWID()"); //"NEWID()" for random guid
+            e.Property(p => p.Name).IsRequired()
+             .HasMaxLength(100);
             e.Property(p => p.Color).HasMaxLength(100);
-            e.HasIndex(e => e.Name);
+            e.HasIndex(e => e.Name).IsUnique();
             e.HasMany(c => c.DiaryEntries)
              .WithOne(d => d.Category)
              .HasForeignKey(c => c.CategoryID)

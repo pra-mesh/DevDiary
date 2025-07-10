@@ -5,7 +5,7 @@
 namespace DevDiary.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDb : Migration
+    public partial class InitialDBCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,9 +14,9 @@ namespace DevDiary.Migrations
                 name: "DiaryCategories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWSEQUENTIALID()"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Color = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,6 +62,7 @@ namespace DevDiary.Migrations
                       WITH CHANGE_TRACKING AUTO;",
                                 suppressTransaction: true
                             );
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_DiaryCategories_Name",

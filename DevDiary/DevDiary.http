@@ -4,3 +4,6 @@ GET {{DevDiary_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{DevDiary_HostAddress}}/api/Categories
+Accept: application/json
