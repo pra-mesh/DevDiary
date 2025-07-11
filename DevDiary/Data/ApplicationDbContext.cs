@@ -32,6 +32,8 @@ public class ApplicationDbContext : DbContext
              c => c.ToList() // Snapshotting logic
              ));
             e.HasIndex(e => e.Title);
+            e.HasIndex(e => new { e.CreatedAt, e.Id })
+             .IsDescending(true, false);
         });
 
         modelBuilder.Entity<DiaryCategory>(e =>

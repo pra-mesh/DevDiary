@@ -1,11 +1,15 @@
-﻿namespace DevDiary.DTO.Request;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DevDiary.DTO.Request;
 
 public class DiaryEntryRequest
 {
+    [Required]
+    [MaxLength(100)]
     public string Title { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+
+    [Required]
     public Guid CategoryID { get; set; }
-    public List<string> Tags { get; set; } = new();
+    public List<string>? Tags { get; set; } = new();
 }
