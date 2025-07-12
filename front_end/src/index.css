@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer components {
+  .primary-button {
+    @apply inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg
+     hover:bg-blue-700 transition-colors duration-200 space-x-2;
+  }
+  .theme-button {
+    @apply p-2 text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100
+               dark:hover:bg-gray-800 rounded-lg transition-colors duration-200;
+  }
+}
