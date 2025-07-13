@@ -10,4 +10,7 @@
     @apply p-2 text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100
                dark:hover:bg-gray-800 rounded-lg transition-colors duration-200;
   }
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2;
+  }
 }
