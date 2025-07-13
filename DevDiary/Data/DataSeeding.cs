@@ -21,7 +21,7 @@ public static class DataSeeding
                 diaryCategories.Add(new DiaryCategory { Name = category });
             }
             Console.WriteLine(String.Join(',', diaryCategories.Select(x => x.Id)));
-            await context.Database.ExecuteSqlRawAsync("delete from diaryCategories");
+            await context!.Database.ExecuteSqlRawAsync("delete from diaryCategories");
             await context.DiaryCategories.AddRangeAsync(diaryCategories);
             await context.SaveChangesAsync();
         }

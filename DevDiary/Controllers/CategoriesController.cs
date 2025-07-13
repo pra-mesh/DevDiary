@@ -6,6 +6,7 @@ using DevDiary.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevDiary.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class CategoriesController : ControllerBase
@@ -34,7 +35,7 @@ public class CategoriesController : ControllerBase
         var result = await _category.UpdateCategory(_mapper.Map<DiaryCategory>(category), ID);
         return Ok(_mapper.Map<CategoryResponse>(result));
     }
-    [HttpDelete("ID")]
+    [HttpDelete("{ID}")]
     public async Task<IActionResult> Delete(Guid ID)
     {
         var result = await _category.DeleteCategory(ID);
@@ -43,7 +44,7 @@ public class CategoriesController : ControllerBase
         return BadRequest("Something went wrong");
     }
 
-    [HttpGet("ID")]
+    [HttpGet("{ID}")]
     public async Task<IActionResult> Get(Guid ID)
     {
         var result = await _category.GetCategoryDetail(ID);

@@ -43,6 +43,7 @@ public class ApplicationDbContext : DbContext
              .HasDefaultValueSql("NEWID()"); //"NEWID()" for random guid
             e.Property(p => p.Name).IsRequired()
              .HasMaxLength(100);
+            e.Property(p => p.Description).HasMaxLength(255);
             e.Property(p => p.Color).HasMaxLength(100);
             e.HasIndex(e => e.Name).IsUnique();
             e.HasMany(c => c.DiaryEntries)

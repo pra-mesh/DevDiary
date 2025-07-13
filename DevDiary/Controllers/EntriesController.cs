@@ -6,6 +6,7 @@ using DevDiary.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevDiary.Controllers;
+
 [Route("api/[controller]")]
 [ApiController]
 public class EntriesController : ControllerBase
