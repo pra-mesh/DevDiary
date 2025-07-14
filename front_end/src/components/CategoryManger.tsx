@@ -1,5 +1,5 @@
 import { Plus, Trash2, X } from "lucide-react";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import { categoryColor } from "../lib/colorMap";
 import { useCategory } from "../contexts/CategoryContext";
@@ -8,6 +8,7 @@ const CategoryManger = ({ onClose }: { onClose: () => void }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
   const [selectedColor, setSelectedColor] = useState("blue");
+  const [description, setDescription] = useState<string>("");
   const useCat = useCategory();
   const handleSubmitCategory = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ const CategoryManger = ({ onClose }: { onClose: () => void }) => {
     const category = {
       name: newCategoryName,
       color: selectedColor,
-      description: "",
+      description,
     };
     useCat.onAddCategory(category);
     setNewCategoryName("");
@@ -131,6 +132,8 @@ const CategoryManger = ({ onClose }: { onClose: () => void }) => {
                     scrollbarWidth: "none", // Firefox
                     msOverflowStyle: "none", // Internet Explorer
                   }}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
               <div className="flex items-center justify-end space-x-3">

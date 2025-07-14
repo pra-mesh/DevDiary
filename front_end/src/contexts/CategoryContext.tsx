@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import type { Category } from "../types";
 import {
@@ -29,7 +30,7 @@ export const CategoryProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        console.log("data");
+       
         const data = await getCategories();
 
         setCategories(data);
