@@ -2,8 +2,9 @@ export interface DiaryEntry {
   id: string;
   title: string;
   content: string;
-  categoryID:string;
-  category: string;
+  categoryID: string;
+  categoryName: string;
+  categoryColor: string;
   createdAt: Date;
   tags: string[];
   isPublished: boolean;
@@ -17,8 +18,8 @@ export interface Category {
 }
 
 export interface EntriesQueryParams {
-  page: Number;
-  pageSize: Number;
+  page: number;
+  pageSize: number;
   CategoryID: string | null;
   search: string | null;
 }

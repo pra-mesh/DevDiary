@@ -1,5 +1,5 @@
 import { URLS } from "../constant";
-import type { DiaryEntry, EntriesQueryParams } from "../types";
+import type { EntriesQueryParams } from "../types";
 
 export const getEntries = async ({
   page = 1,

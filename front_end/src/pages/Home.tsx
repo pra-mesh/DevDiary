@@ -3,9 +3,12 @@ import CategoryManger from "../components/CategoryManger";
 import Header from "../components/Header";
 import CategoryFilter from "../components/CategoryFilter";
 import SearchBar from "../components/SearchBar";
+import { useEntry } from "../contexts/EntryContext";
+import EntryCard from "../components/EntryCard";
 
 const Home = () => {
   const [showCategoryManger, setShowCategoryManager] = useState(false);
+  const { entries, searchValue, selectedCategory } = useEntry();
   const handleCloseCategoryManager = () => {
     setShowCategoryManager(false);
   };
@@ -19,6 +22,28 @@ const Home = () => {
           </div>
           <div className="lg:col-span-3">
             <SearchBar />
+
+            {entries.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="text-gray-600 dark:text-gray-400 text-lg mb-4">
+                  {searchValue || selectedCategory
+                    ? "No entries found"
+                    : "No entries yet"}
+                </div>
+                <button
+                  onClick={() => alert("Add")}
+                  className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+                >
+                  Create your first entry
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {entries.map((entry) => (
+                  <EntryCard entry={entry} key={entry.id} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
