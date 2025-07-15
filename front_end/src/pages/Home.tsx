@@ -5,13 +5,33 @@ import CategoryFilter from "../components/CategoryFilter";
 import SearchBar from "../components/SearchBar";
 import { useEntry } from "../contexts/EntryContext";
 import EntryCard from "../components/EntryCard";
+import type { DiaryEntry } from "../types";
+import EntryViewer from "../components/EntryViewer";
 
 const Home = () => {
   const [showCategoryManger, setShowCategoryManager] = useState(false);
+  const [showEntryView, setShowEntryView] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<DiaryEntry | null>(null);
+  const [viewingEntry, setViewingEntry] = useState<DiaryEntry | null>(null);
   const { entries, searchValue, selectedCategory } = useEntry();
+
   const handleCloseCategoryManager = () => {
     setShowCategoryManager(false);
   };
+  const handleEdit = (entry: DiaryEntry) => {
+    setEditingEntry(entry);
+    setShowEntryView(true);
+    setViewingEntry(null);
+  };
+  const handleView = (entry: DiaryEntry) => {
+    setEditingEntry(null);
+    setViewingEntry(entry);
+    setShowEntryView(false);
+  };
+  const handleCloseEntryViewer = () => {
+    setViewingEntry(null);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       <Header openCategories={() => setShowCategoryManager(true)} />;
@@ -40,7 +60,12 @@ const Home = () => {
             ) : (
               <div className="space-y-6">
                 {entries.map((entry) => (
-                  <EntryCard entry={entry} key={entry.id} />
+                  <EntryCard
+                    entry={entry}
+                    key={entry.id}
+                    onEdit={handleEdit}
+                    onView={handleView}
+                  />
                 ))}
               </div>
             )}
@@ -49,6 +74,13 @@ const Home = () => {
       </div>
       {showCategoryManger && (
         <CategoryManger onClose={handleCloseCategoryManager} />
+      )}
+      {viewingEntry && (
+        <EntryViewer
+          entry={viewingEntry}
+          onClose={handleCloseEntryViewer}
+          onEdit={handleEdit}
+        />
       )}
     </div>
   );

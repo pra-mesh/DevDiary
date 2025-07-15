@@ -67,6 +67,9 @@ namespace DevDiary.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Tags")
                         .IsRequired()
                         .HasMaxLength(1000)

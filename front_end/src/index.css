@@ -13,4 +13,12 @@
   .form-label {
     @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2;
   }
+  .card-icon {
+    @apply p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400
+            hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200;
+  }
+  .close-button {
+    @apply p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white
+             hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200;
+  }
 }

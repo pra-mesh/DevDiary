@@ -21,7 +21,9 @@ builder.Services.AddControllers().AddJsonOptions(opt =>
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(o =>
-o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+sqlOptions => sqlOptions.CommandTimeout(120)
+));
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IEntryRepository, EntryRepository>();

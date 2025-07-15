@@ -6,7 +6,7 @@ import { useDebounce } from "../hooks/useDebounce";
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const { setSearchValue } = useEntry();
-  const debounceValue = useDebounce(inputValue, 1500);
+  const debounceValue = useDebounce(inputValue, 1000);
   useEffect(() => {
     setSearchValue(debounceValue);
   }, [debounceValue, setSearchValue]);

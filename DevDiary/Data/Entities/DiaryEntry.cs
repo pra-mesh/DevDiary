@@ -10,5 +10,5 @@ public class DiaryEntry
     public Guid CategoryID { get; set; }
     public DiaryCategory Category { get; set; } = null!;
     public List<string> Tags { get; set; } = new();
-    public bool isPublished { get; set; } = false;
+    public bool IsPublished { get; set; } = false;
 }

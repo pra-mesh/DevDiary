@@ -12,5 +12,5 @@ public class DiaryEntryResponse
     public string CategoryName { get; set; } = string.Empty;
     public string? CategoryColor { get; set; }
     public string? CategoryDescription { get; set; }
-    public bool isPublished { get; set; } = false;
+    public bool IsPublished { get; set; } = false;
 }
