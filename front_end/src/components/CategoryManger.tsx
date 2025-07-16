@@ -27,10 +27,9 @@ const CategoryManger = ({ onClose }: { onClose: () => void }) => {
     useCat.onDeleteCategory(id);
   };
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-contrast-30 backdrop-brightness-70">
-      {/*for interactive parent style pointer-events-none*/}
-      <div className="bg-white dark:bg-gray-900 rounded-lg w-[90%] max-w-2xl max-h-screen overflow-hidden shadow-2xl">
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+    <div className="modal-overlay">
+      <div className="modal-bg">
+        <div className="modal-header">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             Manage Categories
           </h2>
@@ -38,7 +37,7 @@ const CategoryManger = ({ onClose }: { onClose: () => void }) => {
             <X className="h-6 w-6" />
           </button>
         </div>
-        <div className="p-6 max-h-96 overflow-y-auto">
+        <div className="p-6 max-h-[60vh] overflow-y-auto">
           <div className="space-y-3 mb-6 ">
             {useCat.categories.map((category) => (
               <div

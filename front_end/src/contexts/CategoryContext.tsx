@@ -1,5 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import type { Category } from "../types";
 import {
   addCategory,
@@ -27,19 +33,18 @@ export const CategoryProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [categories, setCategories] = useState<Category[]>([]);
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-       
-        const data = await getCategories();
-
-        setCategories(data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchCategories();
+  const fetchCategories = useCallback(async () => {
+    try {
+      const data = await getCategories();
+      setCategories(data);
+    } catch (e) {
+      console.error(e);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
   const onAddCategory = async (Category: Omit<Category, "id">) => {
     const newCategory = await addCategory(Category);
     if (newCategory?.id) setCategories((prev) => [...prev, newCategory]);

@@ -2,7 +2,13 @@ import { BookOpen, Moon, PlusCircle, Settings, Sun } from "lucide-react";
 
 import { useTheme } from "../contexts/ThemeContext";
 
-const Header = ({ openCategories }: { openCategories: () => void }) => {
+const Header = ({
+  openCategories,
+  addEntry,
+}: {
+  openCategories: () => void;
+  addEntry: () => void;
+}) => {
   const { isDarkMode, toggleTheme } = useTheme();
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 transition-colors duration-200">
@@ -25,7 +31,7 @@ const Header = ({ openCategories }: { openCategories: () => void }) => {
             <button onClick={openCategories} className="theme-button">
               <Settings className="h-5 w-5" />
             </button>
-            <button className="primary-button">
+            <button onClick={addEntry} className="primary-button">
               <PlusCircle className="h-5 w-5" />
               <span>New Entry</span>
             </button>
