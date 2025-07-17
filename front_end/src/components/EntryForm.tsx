@@ -1,9 +1,10 @@
 import { Eye, EyeOff, Hash, Save, X } from "lucide-react";
 import type { DiaryEntry } from "../types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { categoryColor } from "../lib/colorMap";
 import { useCategory } from "../contexts/CategoryContext";
-
+import { parseMarkdown } from "../lib/markdown";
+import DOMPurify from "dompurify";
 type EntryFormProps = {
   entry?: DiaryEntry | null; // Replace 'any' with the actual type if known
   onCancel: () => void;
@@ -19,6 +20,20 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
   const [category, setCategory] = useState(
     entry?.categoryID || categories[0]?.id || ""
   );
+  const [htmlContent, setHtmlContent] = useState<string>("");
+  useEffect(() => {
+    const renderContent = async () => {
+      try {
+        const parsed = await parseMarkdown(content);
+        setHtmlContent(DOMPurify.sanitize(parsed));
+      } catch (error) {
+        console.error("Markdown parsing error:", error);
+        setHtmlContent(content);
+      }
+    };
+    renderContent();
+  }, [content]);
+
   const getTagSuggestions = () => {
     const commonTags = [
       "react",
@@ -62,7 +77,7 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
   console.log({ category, categories });
   return (
     <div className="modal-overlay">
-      <div className="modal-bg">
+      <div className="modal-bg  max-h-[95vh] flex flex-col">
         <div className="modal-header">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             {entry ? "Edit Entry" : "Add Entry"}
@@ -87,7 +102,10 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
             </button>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="p-6 h-fulll overflow-y-auto">
+        <form
+          onSubmit={handleSubmit}
+          className="p-6 flex flex-col flex-grow overflow-hidden"
+        >
           {showPreview ? (
             <div className="relative">
               <div className="absolute top-4 right-4 z-10">
@@ -96,8 +114,12 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
                   Preview Mode
                 </span>
               </div>
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 p-8 rounded-xl border-2 border-blue-200 dark:border-blue-800 min-h-96 shadow-inner">
-                <div className="mb-6">
+              <div
+                className="bg-gradient-to-br from-blue-50   to-indigo-100 dark:from-gray-800
+               dark:to-gray-900 p-8 rounded-xl border-2 border-blue-200 dark:border-blue-800
+                shadow-inner  max-h-[30rem] overflow-y-auto"
+              >
+                <div className="mb-6 ">
                   <span
                     className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white ${
                       categoryColor[
@@ -114,12 +136,116 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
                   <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                     {title}
                   </h1>
-                  <div className="text-gray-700 dark:text-gray-300 leading-relaxed" />
+                  <div
+                    className="text-gray-700 dark:text-gray-300 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: htmlContent }}
+                  />
                 </div>
               </div>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="flex-grow overflow-y-auto space-y-6 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            ">
               <div>
                 <label className="form-label">Title</label>
                 <input
