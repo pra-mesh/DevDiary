@@ -177,7 +177,7 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
               </div>
             </div>
           ) : (
-            <div className="flex-grow overflow-y-auto space-y-">
+            <div className="flex-grow overflow-y-auto px-4 space-y-2">
               <div>
                 <label className="form-label">Title</label>
                 <input
