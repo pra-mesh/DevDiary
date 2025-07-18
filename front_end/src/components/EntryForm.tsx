@@ -96,6 +96,7 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
       };
       onAddEntry(newEntry);
     }
+    onCancel();
   };
   const addTag = (tag: string) => {
     const currentTags = tags
