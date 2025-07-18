@@ -1,7 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import type { DiaryEntry } from "../types";
-import { getEntries } from "../services/entry";
+import {
+  deleteEntries,
+  getEntries,
+  addEntries,
+  editEntries,
+} from "../services/entry";
 
 interface EntriesContextType {
   entries: DiaryEntry[];
@@ -47,10 +52,32 @@ export const EntryProvider: React.FC<{ children: React.ReactNode }> = ({
     };
     fetchEntries();
   }, [page, pageSize, selectedCategory, searchValue]);
-  console.log({ entries });
-  const onAddEntry = () => {};
-  const onEditEntry = () => {};
-  const onDeleteEntry = () => {};
+
+  const onAddEntry = async (entry: DiaryEntry) => {
+    const newCategory = await addEntries(entry);
+    if (!newCategory?.data) {
+      console.log("New entry was added");
+      setPage(1);
+    }
+  };
+  const onEditEntry = async (entry: DiaryEntry) => {
+    const editCategory = await editEntries(entry);
+    if (!editCategory?.data) {
+      console.log("Edit entry succesfully");
+      const newEntries = entries.map((e) =>
+        e.id === entry.id ? { ...e, ...entry } : e
+      );
+      setEntries(newEntries);
+    }
+  };
+
+  const onDeleteEntry = async (entryID: string) => {
+    const wasDeleted = await deleteEntries(entryID);
+    if (!wasDeleted?.data) {
+      setEntries((prev) => prev.filter((x) => x.id !== entryID));
+      console.log("Deleted Entry");
+    }
+  };
   const onGetEntry = (): DiaryEntry => {
     throw new Error("onGetEntry not implemented");
   };

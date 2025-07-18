@@ -11,7 +11,6 @@ export const getPreviewText = (content: string) => {
 };
 
 export const formatDate = (date: Date) => {
-  console.log(date);
   return new Date(date).toLocaleDateString("en-us", {
     year: "numeric",
     month: "short",

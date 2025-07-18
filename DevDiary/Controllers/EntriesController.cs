@@ -49,7 +49,7 @@ public class EntriesController : ControllerBase
     public async Task<IActionResult> Delete(Guid ID)
     {
         if (await _entry.Remove(ID))
-            return Ok("Entry has been deleted");
+            return Ok(new { message="Entry has been deleted" });
         return BadRequest("Something went wrong");
     }
 }

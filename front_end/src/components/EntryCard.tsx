@@ -3,12 +3,19 @@ import type { DiaryEntry } from "../types";
 import { categoryColor } from "../lib/colorMap";
 import { formatDate, getPreviewText } from "../lib/utils";
 import { Calendar, Edit, Eye, Tag, Trash2 } from "lucide-react";
+import { useEntry } from "../contexts/EntryContext";
 interface EntryCardProps {
   entry: DiaryEntry;
   onEdit: (entry: DiaryEntry) => void;
   onView: (entry: DiaryEntry) => void;
 }
 const EntryCard: React.FC<EntryCardProps> = ({ entry, onEdit, onView }) => {
+  const { onDeleteEntry } = useEntry();
+  const onDelete = (id: string) => {
+    if (window.confirm("Are you sure you want to delete this entry?")) {
+      onDeleteEntry(id);
+    }
+  };
   return (
     <div
       className="bg-white dark:bg-gray-800 border border-gray-200
@@ -39,7 +46,10 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry, onEdit, onView }) => {
               <Edit className="h-5 2-w-5" />
             </button>
             <button className="card-icon">
-              <Trash2 className="h-5 2-w-5" />
+              <Trash2
+                className="h-5 2-w-5"
+                onClick={() => onDelete(entry.id)}
+              />
             </button>
           </div>
         </div>

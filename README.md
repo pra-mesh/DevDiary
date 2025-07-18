@@ -122,7 +122,6 @@ Follow these steps to get the DevDiary project up and running on your local mach
 ## Possible Feature Enhancements
 
 - **User Authentication**: Implement a robust user authentication system (e.g., using ASP.NET Core Identity or a third-party service like Supabase Auth) to allow multiple users to have their own diaries.
-- **Entry Deletion**: Add the functionality to delete entries directly from the UI.
 - **Rich Text Editor**: Integrate a more advanced rich text editor (e.g., TinyMCE, Quill, or TipTap) to provide a more intuitive content creation experience beyond Markdown.
 - **Pagination/Infinite Scrolling**: Implement proper pagination or infinite scrolling for the entry list to improve performance and user experience with a large number of entries.
 - **Tag Management UI**: Create a dedicated interface for managing tags (adding, editing, deleting tags globally).

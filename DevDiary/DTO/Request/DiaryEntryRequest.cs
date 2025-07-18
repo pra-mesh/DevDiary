@@ -12,4 +12,5 @@ public class DiaryEntryRequest
     [Required]
     public Guid CategoryID { get; set; }
     public List<string>? Tags { get; set; } = new();
+    public bool IsPublished { get; set; } = false;
 }

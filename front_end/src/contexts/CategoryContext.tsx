@@ -51,10 +51,10 @@ export const CategoryProvider: React.FC<{ children: React.ReactNode }> = ({
   };
   const onDeleteCategory = async (categoryId: string) => {
     const wasDeleted = await deleteCategory(categoryId);
-    console.log(wasDeleted);
-    if (!wasDeleted?.data)
+    if (!wasDeleted?.data) {
       setCategories((prev) => prev.filter((x) => x.id !== categoryId));
-    console.log("delete");
+      console.log("delete");
+    }
   };
   const onGetCategory = (categoryId: string): Category => {
     const category = categories.find((cat) => cat.id === categoryId);

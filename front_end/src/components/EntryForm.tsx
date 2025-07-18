@@ -5,6 +5,7 @@ import { categoryColor } from "../lib/colorMap";
 import { useCategory } from "../contexts/CategoryContext";
 import { parseMarkdown } from "../lib/markdown";
 import DOMPurify from "dompurify";
+import { useEntry } from "../contexts/EntryContext";
 type EntryFormProps = {
   entry?: DiaryEntry | null; // Replace 'any' with the actual type if known
   onCancel: () => void;
@@ -21,6 +22,7 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
     entry?.categoryID || categories[0]?.id || ""
   );
   const [htmlContent, setHtmlContent] = useState<string>("");
+  const { onAddEntry, onEditEntry } = useEntry();
   useEffect(() => {
     const renderContent = async () => {
       try {
@@ -63,6 +65,37 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) return;
+    if (entry) {
+      const updatedEntry = {
+        ...entry,
+        title,
+        content,
+        tags: tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0),
+        isPublished,
+        categoryID: category,
+      };
+      onEditEntry(updatedEntry);
+    } else {
+      const newEntry: DiaryEntry = {
+        id: "",
+        title,
+        content,
+        categoryID: category,
+        categoryName: categories.find((c) => c.id === category)?.name ?? "",
+        categoryColor:
+          categories.find((c) => c.id === category)?.color ?? "blue",
+        createdAt: new Date(),
+        tags: tags
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0),
+        isPublished,
+      };
+      onAddEntry(newEntry);
+    }
   };
   const addTag = (tag: string) => {
     const currentTags = tags
@@ -74,7 +107,7 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
       setTags(newTags);
     }
   };
-  console.log({ category, categories });
+
   return (
     <div className="modal-overlay">
       <div className="modal-bg  max-h-[95vh] flex flex-col">
@@ -144,108 +177,7 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
               </div>
             </div>
           ) : (
-            <div className="flex-grow overflow-y-auto space-y-6 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            ">
+            <div className="flex-grow overflow-y-auto space-y-">
               <div>
                 <label className="form-label">Title</label>
                 <input
