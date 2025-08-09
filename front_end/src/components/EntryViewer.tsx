@@ -31,7 +31,7 @@ const EntryViewer: FC<EntryViewerProps> = ({ entry, onClose, onEdit }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-bg  max-w-fit">
+      <div className="modal-bg  max-w-6xl">
         <div className="modal-header">
           <div className="flex items-center space-x-3">
             <span

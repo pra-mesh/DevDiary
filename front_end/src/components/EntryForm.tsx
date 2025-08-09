@@ -17,7 +17,7 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
   const [title, setTitle] = useState(entry?.title || "");
   const [content, setContent] = useState(entry?.content || "");
   const [tags, setTags] = useState(entry?.tags.join(", ") || "");
-  const [isPublished, setIsPublished] = useState(entry?.isPublished || false);
+  const [isPublished, setIsPublished] = useState(entry?.isPublished ?? false);
   const [category, setCategory] = useState(
     entry?.categoryID || categories[0]?.id || ""
   );
@@ -96,7 +96,9 @@ const EntryForm = ({ entry, onCancel }: EntryFormProps) => {
       };
       onAddEntry(newEntry);
     }
-    onCancel();
+    if (typeof onCancel === "function") {
+      onCancel();
+    }
   };
   const addTag = (tag: string) => {
     const currentTags = tags

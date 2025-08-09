@@ -12,8 +12,24 @@ public class ApplicationDbContext : DbContext
     }
     public DbSet<DiaryEntry> DiaryEntries { get; set; }
     public DbSet<DiaryCategory> DiaryCategories { get; set; }
+    public DbSet<Users> Users { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Users>(e =>
+        {
+            e.HasKey(e => e.Id);
+            e.Property(e => e.Id).HasDefaultValueSql("NEWID()");
+            e.Property(e => e.Key).IsRequired().HasMaxLength(6);
+            e.Property(e => e.UserName).IsRequired().HasMaxLength(100);
+            e.HasIndex(e => e.UserName).IsUnique();
+            e.HasMany(e => e.DiaryCategories).WithOne(c => c.User)
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Restrict);
+            e.HasMany(e => e.DiaryEntries).WithOne(c => c.User)
+          .IsRequired(false)
+          .OnDelete(DeleteBehavior.Restrict);
+
+        });
         modelBuilder.Entity<DiaryEntry>(e =>
         {
             e.HasKey(e => e.Id);

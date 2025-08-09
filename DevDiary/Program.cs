@@ -27,6 +27,7 @@ sqlOptions => sqlOptions.CommandTimeout(300)
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IEntryRepository, EntryRepository>();
+builder.Services.AddScoped<IUserRepositories, UserRepositories>();
 //NOTES Learn more about loggerFactory
 //TODO use log factory
 var mapperConfig = new MapperConfiguration(cfg =>

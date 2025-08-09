@@ -1,4 +1,6 @@
-﻿namespace DevDiary.Data.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace DevDiary.Data.Entities;
 
 public class DiaryCategory
 {
@@ -8,4 +10,8 @@ public class DiaryCategory
     public string? Description { get; set; } = string.Empty;
 
     public ICollection<DiaryEntry> DiaryEntries { get; set; } = [];
+    public Guid? UserId { get; set; }
+    [JsonIgnore]
+    public Users? User { get; set; }
+
 }

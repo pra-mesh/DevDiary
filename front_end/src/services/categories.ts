@@ -2,6 +2,7 @@ import { URLS } from "../constant";
 import type { Category } from "../types";
 
 export const getCategories = async () => {
+  
   const response = await fetch(URLS.Categories);
   if (!response.ok) throw new Error("Failed to fetch categories");
   return await response.json();

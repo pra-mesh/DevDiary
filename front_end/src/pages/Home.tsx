@@ -14,7 +14,7 @@ const Home = () => {
   const [showEntryView, setShowEntryForm] = useState(false);
   const [editingEntry, setEditingEntry] = useState<DiaryEntry | null>(null);
   const [viewingEntry, setViewingEntry] = useState<DiaryEntry | null>(null);
-  const { entries, searchValue, selectedCategory } = useEntry();
+  const { entries, searchValue, selectedCategory} = useEntry();
 
   const handleCloseCategoryManager = () => {
     setShowCategoryManager(false);
